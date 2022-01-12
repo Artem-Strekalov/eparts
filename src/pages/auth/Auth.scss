@@ -1,9 +1,11 @@
 .content {
+  font-family: Roboto;
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
   background: #0075c4;
+  color: #fff;
   &__header {
     padding: 25px 0 0 30px;
   }
@@ -12,8 +14,15 @@
     display: flex;
     padding: 0 150px;
   }
-  &__main-form {
+  form {
     display: flex;
     flex-direction: column;
+    p {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .content__input {
+      margin-bottom: 10px;
+    }
   }
 }

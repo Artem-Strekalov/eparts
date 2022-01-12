@@ -6,26 +6,15 @@ import { alpha, styled } from "@mui/material/styles";
 const Auth = () => {
   const MyInput = styled(TextField)({
     width: "300px",
-    marginBottom: "25px",
-
+    background: "white",
+    borderRadius: "10px",
     "& .MuiOutlinedInput-input": {
-      color: "white",
-    },
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
+      color: "#222",
     },
     "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
       "&.Mui-focused fieldset": {
         borderColor: "white",
+        borderRadius: "10px",
       },
     },
   });
@@ -35,21 +24,26 @@ const Auth = () => {
         <img src={process.env.PUBLIC_URL + "/image/svg/logo.svg"} />
       </div>
       <div className="content__main">
-        <form className="content__main-form">
+        <form>
           <h2>Авторизация</h2>
-          <MyInput
-            placeholder="e-mail"
-            label="Введите e-mail"
-            focused
-            id="custom-css-outlined-input"
-            margin="normal"
-          />
-          <MyInput
-            placeholder="пароль"
-            label="Введите пароль"
-            focused
-            id="custom-css-outlined-input"
-          />
+          <div className="content__input">
+            <p>Введите e-mail</p>
+            <MyInput
+              size="small"
+              placeholder="e-mail"
+              focused
+              id="custom-css-outlined-input"
+            />
+          </div>
+          <div className="content__input">
+            <p>Введите пароль</p>
+            <MyInput
+              size="small"
+              placeholder="пароль"
+              focused
+              id="custom-css-outlined-input"
+            />
+          </div>
         </form>
         <div className="content__main-img"></div>
       </div>
