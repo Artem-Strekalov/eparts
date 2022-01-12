@@ -1,0 +1,19 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: #0075c4;
+  &__header {
+    padding: 25px 0 0 30px;
+  }
+  &__main {
+    margin: auto 0;
+    display: flex;
+    padding: 0 150px;
+  }
+  &__main-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
