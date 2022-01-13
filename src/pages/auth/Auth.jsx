@@ -46,6 +46,10 @@ const Auth = () => {
             />
           </div>
           <button className="content__form-btn">Войти</button>
+          <div className="content__form-footer">
+            <p className="content__link-reg">Зарегистрироваться</p>
+            <p>Забыли пароль?</p>
+          </div>
         </form>
         <img
           className="content__main-img"

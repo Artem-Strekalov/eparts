@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100;300;400;500;600&family=Open+Sans:wght@300;400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap");
 .content {
-  font-family: Roboto;
+  font-family: Inter, Roboto;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -49,6 +50,18 @@
     }
     .content__form-btn:hover {
       opacity: 1;
+    }
+    .content__form-footer {
+      display: flex;
+      margin-top: 15px;
+      p {
+        cursor: pointer;
+      }
+    }
+    .content__link-reg {
+      color: #efa00b;
+      text-decoration: underline;
+      margin-right: 25px;
     }
   }
 }
