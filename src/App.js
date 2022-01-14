@@ -1,7 +1,7 @@
 import React from "react";
-import Auth from "./pages/auth/Auth";
+import Reg from "./pages/auth/Reg";
 import "./App.css";
 function App() {
-  return <Auth></Auth>;
+  return <Reg></Reg>;
 }
 export default App;

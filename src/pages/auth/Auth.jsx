@@ -29,21 +29,11 @@ const Auth = () => {
           <h2>Авторизация на Eparts</h2>
           <div className="content__input">
             <p>Введите e-mail</p>
-            <MyInput
-              size="small"
-              placeholder="e-mail"
-              focused
-              id="custom-css-outlined-input"
-            />
+            <MyInput size="small" placeholder="e-mail" focused id="custom-css-outlined-input" />
           </div>
           <div className="content__input">
             <p>Введите пароль</p>
-            <MyInput
-              size="small"
-              placeholder="пароль"
-              focused
-              id="custom-css-outlined-input"
-            />
+            <MyInput size="small" placeholder="пароль" focused id="custom-css-outlined-input" />
           </div>
           <button className="content__form-btn">Войти</button>
           <div className="content__form-footer">
@@ -51,10 +41,7 @@ const Auth = () => {
             <p>Забыли пароль?</p>
           </div>
         </form>
-        <img
-          className="content__main-img"
-          src={process.env.PUBLIC_URL + "/image/png/tractor.png"}
-        />
+        <img className="content__main-img" src={process.env.PUBLIC_URL + "/image/png/tractor.png"} />
       </div>
     </div>
   );
