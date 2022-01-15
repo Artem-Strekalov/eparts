@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100;300;400;500;600&family=Open+Sans:wght@300;400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap");
+.content {
+  font-family: Inter, Roboto;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: #0075c4;
+  color: #fff;
+  &__header {
+    padding: 25px 0 0 30px;
+  }
+  &__main {
+    display: flex;
+    align-items: center;
+    padding-left: 150px;
+    height: 100%;
+    &-img {
+      max-width: 530px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+    p {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .content__input {
+      margin-bottom: 10px;
+    }
+    .content__form-btn {
+      max-width: 333px;
+      width: 100%;
+      height: 40px;
+      background: #efa00b;
+      color: #fff;
+      border: none;
+      opacity: 0.9;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .content__form-btn:hover {
+      opacity: 1;
+    }
+    .content__form-footer {
+      display: flex;
+      margin-top: 15px;
+      p {
+        cursor: pointer;
+      }
+    }
+    .content__link-reg {
+      color: #efa00b;
+      text-decoration: underline;
+      margin-right: 25px;
+    }
+  }
+}
