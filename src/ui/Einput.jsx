@@ -23,7 +23,7 @@ const Einput = ({
     },
     label: {
       fontSize: '12px',
-      marginTop: '40px',
+     
     },
     input: {
       width: '100%',
@@ -49,7 +49,7 @@ const Einput = ({
 
   return (
     <div className='input' style={Object.assign({}, styledInput, customStyle)}>
-      {title ? <label style={styledInput.label}>{title}</label> : ''}
+      {title ? <p style={styledInput.label}>{title}</p> : ''}
       <div style={styledInput.inputBlock}>
         <input
           email={email}

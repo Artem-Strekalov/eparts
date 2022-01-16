@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { StyledEngineProvider } from "@mui/material/styles";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import {BrowserRouter} from 'react-router-dom'
 
 ReactDOM.render(
-  <StyledEngineProvider injectFirst>
+  <BrowserRouter>
     <App />
-  </StyledEngineProvider>,
-  document.getElementById("root")
-);
+  </BrowserRouter>,
+  document.getElementById('root'),
+)

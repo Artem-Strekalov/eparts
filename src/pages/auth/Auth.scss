@@ -7,7 +7,7 @@
   height: 100vh;
   background: #0075c4;
   color: #fff;
-  
+
   &__header {
     padding: 25px 0 0 30px;
   }
@@ -17,7 +17,7 @@
     padding-left: 150px;
     height: 100%;
     &-img {
-      max-width: 530px;
+      max-width: 500px;
       width: 100%;
       margin: 0 auto;
     }
@@ -63,6 +63,12 @@
       color: #efa00b;
       text-decoration: underline;
       margin-right: 25px;
+      font-size: 12px;
+    }
+    .content__link {
+      text-decoration: none;
+      color: #fff;
+      font-size: 12px;
     }
   }
 }

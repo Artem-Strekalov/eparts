@@ -1,6 +1,7 @@
 import './Auth.scss'
 import React, {useState} from 'react'
 import Einput from '../../ui/Einput'
+import {Link} from 'react-router-dom'
 
 const Reg = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,7 @@ const Reg = () => {
     organization: '',
     password: '',
   })
+  const marginBottom = {marginBottom: '10px'}
 
   function getEmail(value) {
     setForm({...form, email: value})
@@ -30,8 +32,7 @@ const Reg = () => {
   function getPassword(value) {
     setForm({...form, password: value})
   }
-  const marginBottom = {marginBottom: '10px'}
-  console.log(form)
+
   return (
     <div className='content'>
       <div className='content__header'>
@@ -47,34 +48,29 @@ const Reg = () => {
             required={true}
             onChange={getEmail}
             customStyle={marginBottom}
-            className='content__input'
           />
           <Einput
             title='Имя'
             required={true}
             onChange={getFirstName}
             customStyle={marginBottom}
-            className='content__input'
           />
           <Einput
             title='Фамилия'
             required={true}
             onChange={getSecondName}
             customStyle={marginBottom}
-            className='content__input'
           />
           <Einput
             title='Телефон'
             required={true}
             onChange={getPhone}
             customStyle={marginBottom}
-            className='content__input'
           />
           <Einput
             required={true}
             title='Организация'
             customStyle={marginBottom}
-            className='content__input'
             onChange={getOrganization}
           />
           <Einput
@@ -82,13 +78,14 @@ const Reg = () => {
             type='password'
             required={true}
             onChange={getPassword}
-            className='content__input'
           />
           <button type='submit' className='content__form-btn'>
             Зарегистрироваться
           </button>
           <div className='content__form-footer'>
-            <p className='content__link-reg'>У меня уже есть аккаунт</p>
+            <Link className='content__link' to='/'>
+              У меня уже есть аккаунт
+            </Link>
           </div>
         </form>
         <img
