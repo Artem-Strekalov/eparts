@@ -2,6 +2,9 @@ import './Auth.scss'
 import React, {useState} from 'react'
 import Einput from '../../ui/Einput'
 import {Link} from 'react-router-dom'
+import appFirebase from '../../firebase'
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+
 const Auth = () => {
   const [form, setForm] = useState({
     email: '',
@@ -14,14 +17,27 @@ const Auth = () => {
   function getPassword(value) {
     setForm({...form, password: value})
   }
-  
+  const auth = getAuth(appFirebase)
+  async function authorization(e) {
+    e.preventDefault()
+    await signInWithEmailAndPassword(auth, form.email, form.password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+      })
+  }
+
   return (
     <div className='content'>
       <div className='content__header'>
         <img src={process.env.PUBLIC_URL + '/image/svg/logo.svg'} />
       </div>
       <div className='content__main'>
-        <form>
+        <form onSubmit={authorization}>
           <h2>Авторизация на Eparts</h2>
           <Einput
             type='email'
@@ -37,7 +53,9 @@ const Auth = () => {
             required={true}
             onChange={getPassword}
           />
-          <button className='content__form-btn'>Войти</button>
+          <button type='submit' className='content__form-btn'>
+            Войти
+          </button>
           <div className='content__form-footer'>
             <Link className='content__link-reg' to='/reg'>
               Зарегистрироваться
