@@ -5,7 +5,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 const Einput = ({
   type,
   title,
-  email,
   required,
   onChange,
   placeholder,
@@ -23,7 +22,6 @@ const Einput = ({
     },
     label: {
       fontSize: '12px',
-     
     },
     input: {
       width: '100%',
@@ -52,7 +50,6 @@ const Einput = ({
       {title ? <p style={styledInput.label}>{title}</p> : ''}
       <div style={styledInput.inputBlock}>
         <input
-          email={email}
           type={typeInput}
           required={required}
           onChange={valueInput}

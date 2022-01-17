@@ -2,6 +2,8 @@ import './Auth.scss'
 import React, {useState} from 'react'
 import Einput from '../../ui/Einput'
 import {Link} from 'react-router-dom'
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+import appFirebase from '../../firebase'
 
 const Reg = () => {
   const [form, setForm] = useState({
@@ -32,6 +34,20 @@ const Reg = () => {
   function getPassword(value) {
     setForm({...form, password: value})
   }
+  /* регистрация */
+  const auth = getAuth(appFirebase)
+  async function registred(e) {
+    e.preventDefault()
+    await createUserWithEmailAndPassword(auth, form.email, form.password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+      })
+  }
 
   return (
     <div className='content'>
@@ -39,12 +55,11 @@ const Reg = () => {
         <img src={process.env.PUBLIC_URL + '/image/svg/logo.svg'} />
       </div>
       <div className='content__main'>
-        <form onSubmit={console.log(form)}>
+        <form onSubmit={registred}>
           <h2>Регистрация на Eparts</h2>
           <Einput
             type='email'
             title='Email'
-            email={true}
             required={true}
             onChange={getEmail}
             customStyle={marginBottom}

@@ -14,6 +14,7 @@ const Auth = () => {
   function getPassword(value) {
     setForm({...form, password: value})
   }
+  
   return (
     <div className='content'>
       <div className='content__header'>
