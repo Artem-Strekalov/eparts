@@ -3,6 +3,7 @@ import React from 'react'
 import Auth from './pages/auth/Auth'
 import Reg from './pages/auth/Reg'
 import NotFound from './pages/NotFound'
+import Home from './pages/Home'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import {Routes, Route, Link} from 'react-router-dom'
 
@@ -12,6 +13,7 @@ function App() {
       <Route path='/' element={<Auth />} />
       <Route path='reg' element={<Reg />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
+      <Route path='home' element={<Home />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   )
