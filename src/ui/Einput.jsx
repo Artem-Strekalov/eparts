@@ -9,6 +9,7 @@ const Einput = ({
   onChange,
   placeholder,
   customStyle,
+  height,
 }) => {
   const styledInput = {
     width: '100%',
@@ -16,7 +17,7 @@ const Einput = ({
       display: 'flex',
       alignItems: 'center',
       background: '#fff',
-      height: '40px',
+      height: `${height ? height : '40px'}`,
       paddingRight: '10px',
       borderRadius: '10px',
     },
@@ -28,6 +29,7 @@ const Einput = ({
       border: 'none',
       outline: 'none',
       padding: '0 10px 0 10px',
+      fontSize:'16px'
     },
     icon: {
       color: '#999',
