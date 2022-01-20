@@ -6,14 +6,20 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import HomeIcon from '@mui/icons-material/Home'
 import PhoneIcon from '@mui/icons-material/Phone'
 import Einput from '../ui/Einput'
+import Etable from '../ui/Etable'
 
 const Home = () => {
   const [hover, setHover] = useState(false)
+  const [heightSearch, setHeightSearch] = useState('100%')
   function showHover() {
     setHover(true)
   }
   function hideHover() {
     setHover(false)
+  }
+  function search(e) {
+    e.preventDefault()
+    setHeightSearch('100px')
   }
   const styled = {
     width: '100%',
@@ -61,8 +67,7 @@ const Home = () => {
     },
     main: {
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'start',
+      flexDirection: 'column',
       height: 'calc(100vh - 80px)',
     },
     search: {
@@ -71,7 +76,7 @@ const Home = () => {
       alignItems: 'center',
       justifyContent: 'center',
       width: '100%',
-      height: '40%',
+      height: `${heightSearch}`,
       background: '#efa00b',
     },
     searchSpan: {
@@ -95,6 +100,10 @@ const Home = () => {
       marginLeft: '20px',
       boxShadow: `${hover ? ' 0 0 10px #0075c4' : 'none'}`,
       cursor: 'pointer',
+    },
+    table: {
+      width: '100%',
+      padding: '10px',
     },
   }
 
@@ -132,13 +141,13 @@ const Home = () => {
       </header>
       <main style={styled.main}>
         <div style={styled.search}>
-          <span style={styled.searchSpan}>
+          {/* <span style={styled.searchSpan}>
             Для поиска нужной детали используйте форму:
-          </span>
-          <form style={styled.searchForm}>
+          </span> */}
+          <form style={styled.searchForm} onSubmit={search}>
             <Einput
               height='50px'
-              placeholder='Укажите номер, название или VIN'
+              placeholder='Укажите номер запчасти или название'
             />
             <button
               onMouseEnter={showHover}
@@ -148,6 +157,9 @@ const Home = () => {
               Найти
             </button>
           </form>
+        </div>
+        <div style={styled.table}>
+          <Etable />
         </div>
       </main>
     </div>
