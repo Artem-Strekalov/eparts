@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-const Etable = () => {
+const Etable = (props) => {
   const rows = [
     createData(
       '45180 Подшипник 118370, 142088, СА0118370, 141591, 6195530M91, 399037, 562504, AL161291, 52559248, 0.900.1360.6, VOE17220227',
@@ -31,6 +31,7 @@ const Etable = () => {
   }
   return (
     <TableContainer component={Paper}>
+      {props.data}
       <Table sx={{minWidth: 650}} aria-label='simple table'>
         <TableHead>
           <TableRow>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import RestoreIcon from '@mui/icons-material/Restore'
@@ -7,20 +7,50 @@ import HomeIcon from '@mui/icons-material/Home'
 import PhoneIcon from '@mui/icons-material/Phone'
 import Einput from '../ui/Einput'
 import Etable from '../ui/Etable'
+import appFirebase from '../firebase'
+import {getFirestore} from 'firebase/firestore'
+import {collection, getDocs, where, query} from 'firebase/firestore'
 
+const db = getFirestore(appFirebase)
 const Home = () => {
+  const [search, setSearch] = useState('')
   const [hover, setHover] = useState(false)
-  const [heightSearch, setHeightSearch] = useState('100%')
+
+  function getSearch(value) {
+    setSearch(value)
+  }
   function showHover() {
     setHover(true)
   }
   function hideHover() {
     setHover(false)
   }
-  function search(e) {
-    e.preventDefault()
-    setHeightSearch('100px')
+
+  //Переменная в которую должны быть записаны данные
+  const [dataParts, setDataParts] = useState([])
+
+  //на хуке выполняется запрос с зависмостью по поиску, пока печатаю происходят запросы
+  useEffect(() => {
+    getData()
+  }, [search])
+
+  // сам запрос
+  console.log(dataParts)
+  async function getData(e) {
+    const querySnapshot = await query(
+      collection(db, 'eparts'),
+      where(`keys.${search}`, '==', true),
+    )
+    const response = await getDocs(querySnapshot)
+    const newArray = []
+    response.forEach((doc) => {
+      newArray.push(doc.data())
+    })
+    console.log(newArray)
+    setDataParts(newArray)
+    console.log(dataParts)
   }
+
   const styled = {
     width: '100%',
     boxSizing: 'border-box',
@@ -76,7 +106,7 @@ const Home = () => {
       alignItems: 'center',
       justifyContent: 'center',
       width: '100%',
-      height: `${heightSearch}`,
+      height: '100px',
       background: '#efa00b',
     },
     searchSpan: {
@@ -144,12 +174,14 @@ const Home = () => {
           {/* <span style={styled.searchSpan}>
             Для поиска нужной детали используйте форму:
           </span> */}
-          <form style={styled.searchForm} onSubmit={search}>
+          <form style={styled.searchForm} onSubmit={getData}>
             <Einput
               height='50px'
               placeholder='Укажите номер запчасти или название'
+              onChange={getSearch}
             />
             <button
+              id='test'
               onMouseEnter={showHover}
               onMouseLeave={hideHover}
               style={styled.searchBtn}
@@ -158,6 +190,7 @@ const Home = () => {
             </button>
           </form>
         </div>
+
         <div style={styled.table}>
           <Etable />
         </div>
