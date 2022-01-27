@@ -1,42 +1,42 @@
 import React, {useState, useEffect} from 'react'
-import AccountBoxIcon from '@mui/icons-material/AccountBox'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import RestoreIcon from '@mui/icons-material/Restore'
-import LogoutIcon from '@mui/icons-material/Logout'
-import HomeIcon from '@mui/icons-material/Home'
-import PhoneIcon from '@mui/icons-material/Phone'
 import Einput from '../ui/Einput'
 import Etable from '../ui/Etable'
+import Loading from '../ui/Loading'
 import appFirebase from '../firebase'
 import {getFirestore} from 'firebase/firestore'
+import HomeIcon from '@mui/icons-material/Home'
+import PhoneIcon from '@mui/icons-material/Phone'
+import LogoutIcon from '@mui/icons-material/Logout'
+import RestoreIcon from '@mui/icons-material/Restore'
+import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
+  const [load, setLoad] = useState(false)
   const [search, setSearch] = useState('')
   const [hover, setHover] = useState(false)
+  const [dataParts, setDataParts] = useState([])
+  const [noData, setNoData] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  function getSearch(value) {
-    setSearch(value)
-  }
   function showHover() {
     setHover(true)
   }
   function hideHover() {
     setHover(false)
   }
+  function getSearch(value) {
+    setSearch(value.toLowerCase().trim())
+  }
 
-  //Переменная в которую должны быть записаны данные
-  const [dataParts, setDataParts] = useState([])
-
-  //на хуке выполняется запрос с зависмостью по поиску, пока печатаю происходят запросы
-  useEffect(() => {
-    getData()
-  }, [search])
-
-  // сам запрос
-  console.log(dataParts)
+  //запрос
   async function getData(e) {
+    setDataParts([])
+    setNoData(false)
+    setSearchQuery('')
+
     const querySnapshot = await query(
       collection(db, 'eparts'),
       where(`keys.${search}`, '==', true),
@@ -46,10 +46,20 @@ const Home = () => {
     response.forEach((doc) => {
       newArray.push(doc.data())
     })
-    console.log(newArray)
-    setDataParts(newArray)
-    console.log(dataParts)
+    setSearchQuery(search)
+    newArray.length == 0 ? setNoData(true) : await setDataParts(newArray)
+    setLoad(false)
   }
+
+  //вызов на загрузку
+  function loadData(e) {
+    e.preventDefault()
+    setLoad(true)
+  }
+  //загрузка
+  useEffect(() => {
+    getData()
+  }, [load])
 
   const styled = {
     width: '100%',
@@ -107,12 +117,7 @@ const Home = () => {
       justifyContent: 'center',
       width: '100%',
       height: '100px',
-      background: '#efa00b',
-    },
-    searchSpan: {
-      color: '#fff',
-      fontSize: '20px',
-      marginBottom: '20px',
+      background: '#f1f1f1',
     },
     searchForm: {
       display: 'flex',
@@ -171,14 +176,12 @@ const Home = () => {
       </header>
       <main style={styled.main}>
         <div style={styled.search}>
-          {/* <span style={styled.searchSpan}>
-            Для поиска нужной детали используйте форму:
-          </span> */}
-          <form style={styled.searchForm} onSubmit={getData}>
+          <form style={styled.searchForm} onSubmit={loadData}>
             <Einput
               height='50px'
               placeholder='Укажите номер запчасти или название'
               onChange={getSearch}
+              required={true}
             />
             <button
               id='test'
@@ -190,11 +193,23 @@ const Home = () => {
             </button>
           </form>
         </div>
-
         <div style={styled.table}>
-          <Etable />
+          {dataParts.length > 0 ? (
+            <Etable data={JSON.stringify(dataParts)} />
+          ) : (
+            ''
+          )}
+
+          {noData ? (
+            <p>
+              По вашему запросу {searchQuery.toUpperCase()} ничего не найдено
+            </p>
+          ) : (
+            ''
+          )}
         </div>
       </main>
+      {load ? <Loading /> : null}
     </div>
   )
 }

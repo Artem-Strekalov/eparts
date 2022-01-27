@@ -6,17 +6,10 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 
-const Etable = (props) => {
-  const rows = [
-    createData(
-      '45180 Подшипник 118370, 142088, СА0118370, 141591, 6195530M91, 399037, 562504, AL161291, 52559248, 0.900.1360.6, VOE17220227',
-      45180,
-      10,
-      '23 000 тыс',
-      4.0,
-    ),
-  ]
+const Etable = ({data}) => {
+  const rows = JSON.parse(data)
   function createData(name, vendorCode, amount, price, buy) {
     return {name, vendorCode, amount, price, buy}
   }
@@ -31,7 +24,6 @@ const Etable = (props) => {
   }
   return (
     <TableContainer component={Paper}>
-      {props.data}
       <Table sx={{minWidth: 650}} aria-label='simple table'>
         <TableHead>
           <TableRow>
@@ -55,7 +47,9 @@ const Etable = (props) => {
               <TableCell align='right'>{row.amount}</TableCell>
               <TableCell align='right'>{row.price}</TableCell>
               <TableCell align='right'>
-                <button style={styled.btn}>В корзину</button>
+                <Button size='small' variant='contained'>
+                  В корзину
+                </Button>
               </TableCell>
             </TableRow>
           ))}
