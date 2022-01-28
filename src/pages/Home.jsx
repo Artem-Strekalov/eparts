@@ -56,13 +56,6 @@ const Home = () => {
   useEffect(() => {
     getData()
   }, [load])
-
-  //получение данных добавленных в корзину
-  function addDataCart(value) {
-    console.log(value)
-    setDataCart(value)
-  }
-
   const styled = {
     width: '100%',
     boxSizing: 'border-box',
@@ -128,7 +121,7 @@ const Home = () => {
         </div>
         <div style={styled.table}>
           {dataParts.length > 0 ? (
-            <Etable data={JSON.stringify(dataParts)} updateCart={addDataCart} />
+            <Etable data={JSON.stringify(dataParts)} />
           ) : (
             ''
           )}

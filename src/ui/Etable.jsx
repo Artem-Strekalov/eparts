@@ -7,12 +7,11 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
+import {useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 const Etable = ({data, updateCart}) => {
   const rows = JSON.parse(data)
-  function createData(name, vendorCode, amount, price, buy) {
-    return {name, vendorCode, amount, price, buy}
-  }
   const styled = {
     btn: {
       padding: '5px',
@@ -22,9 +21,12 @@ const Etable = ({data, updateCart}) => {
       cursor: 'pointer',
     },
   }
-  function addCart(value) {
-    updateCart(value)
-    localStorage.setItem('dataCart', JSON.stringify(value))
+  const dispatch = useDispatch()
+  const test = useSelector((state) => state.dataCart)
+  console.log(test)
+  function addDataCart(obj) {
+    console.log(obj)
+    dispatch({type: 'ADD_CART', payload: obj})
   }
   return (
     <TableContainer component={Paper}>
@@ -54,7 +56,7 @@ const Etable = ({data, updateCart}) => {
                 <Button
                   size='small'
                   variant='contained'
-                  onClick={() => addCart(row)}
+                  onClick={() => addDataCart(row)}
                 >
                   В корзину
                 </Button>
