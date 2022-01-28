@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 
-const Etable = ({data}) => {
+const Etable = ({data, updateCart}) => {
   const rows = JSON.parse(data)
   function createData(name, vendorCode, amount, price, buy) {
     return {name, vendorCode, amount, price, buy}
@@ -21,6 +21,10 @@ const Etable = ({data}) => {
       borderRadius: '5px',
       cursor: 'pointer',
     },
+  }
+  function addCart(value) {
+    updateCart(value)
+    localStorage.setItem('dataCart', JSON.stringify(value))
   }
   return (
     <TableContainer component={Paper}>
@@ -47,7 +51,11 @@ const Etable = ({data}) => {
               <TableCell align='right'>{row.amount}</TableCell>
               <TableCell align='right'>{row.price}</TableCell>
               <TableCell align='right'>
-                <Button size='small' variant='contained'>
+                <Button
+                  size='small'
+                  variant='contained'
+                  onClick={() => addCart(row)}
+                >
                   В корзину
                 </Button>
               </TableCell>
