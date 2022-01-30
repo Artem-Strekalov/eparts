@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Einput from '../ui/Einput'
 import Etable from '../ui/Etable'
 import Loading from '../ui/Loading'
+import Emodal from '../ui/Emodal'
 import appFirebase from '../firebase'
 import {getFirestore} from 'firebase/firestore'
 import {collection, getDocs, where, query} from 'firebase/firestore'
@@ -135,6 +136,7 @@ const Home = () => {
           )}
         </div>
       </main>
+      <Emodal></Emodal>
       {load ? <Loading /> : null}
     </div>
   )

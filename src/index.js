@@ -1,31 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import {createStore} from 'redux'
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import allReducers from './store/reducers'
+import thunk from 'redux-thunk'
 
-const defaultState = {
-  dataCart: [],
-}
-
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'ADD_CART':
-      return test
-    case 'ADD_CASH':
-      return {...state, cash: state.cash - action.payload}
-    default:
-      return state
-  }
-}
-function test(value) {
-  console.log(value)
-}
-const store = createStore(reducer)
-
+const myStore = createStore(
+  allReducers,
+  applyMiddleware(thunk),
+  /* window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), */
+)
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={myStore}>
     <BrowserRouter>
       <App />
     </BrowserRouter>

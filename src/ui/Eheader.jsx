@@ -6,8 +6,11 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import RestoreIcon from '@mui/icons-material/Restore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import {useSelector} from 'react-redux'
+import {useSatate, useEffect} from 'react'
 
 const Eheader = () => {
+  const dataBascket = useSelector((state) => state.dataBascket)
   const styled = {
     header: {
       width: '100%',
@@ -67,7 +70,11 @@ const Eheader = () => {
           Мои заказы
         </div>
         <NavLink style={styleLink} to='/cart'>
-          <span style={styled.navCounter}>4</span>
+          {dataBascket.length != 0 ? (
+            <span style={styled.navCounter}>{dataBascket.length}</span>
+          ) : (
+            ''
+          )}
           <ShoppingCartIcon style={styled.icon} />
           Корзина
         </NavLink>

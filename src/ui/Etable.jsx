@@ -7,27 +7,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import {useDispatch} from 'react-redux'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {addDataToBascket} from '../store/actions'
 
-const Etable = ({data, updateCart}) => {
+const Etable = ({data}) => {
   const rows = JSON.parse(data)
-  const styled = {
-    btn: {
-      padding: '5px',
-      background: '#0075c4',
-      color: '#fff',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    },
-  }
   const dispatch = useDispatch()
-  const test = useSelector((state) => state.dataCart)
-  console.log(test)
   function addDataCart(obj) {
-    console.log(obj)
-    dispatch({type: 'ADD_CART', payload: obj})
+    dispatch(addDataToBascket(obj))
   }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650}} aria-label='simple table'>
@@ -36,7 +25,8 @@ const Etable = ({data, updateCart}) => {
             <TableCell>Наименование</TableCell>
             <TableCell align='right'>Артикул</TableCell>
             <TableCell align='right'>Количество</TableCell>
-            <TableCell align='right'>Цена</TableCell>
+            <TableCell align='right'>Цена на складе</TableCell>
+            <TableCell align='right'>Цена под заказ</TableCell>
             <TableCell align='right'> </TableCell>
           </TableRow>
         </TableHead>
@@ -51,7 +41,8 @@ const Etable = ({data, updateCart}) => {
               </TableCell>
               <TableCell align='right'>{row.vendorCode}</TableCell>
               <TableCell align='right'>{row.amount}</TableCell>
-              <TableCell align='right'>{row.price}</TableCell>
+              <TableCell align='right'>{row.prisStoc}</TableCell>
+              <TableCell align='right'>{row.priceOnOrder}</TableCell>
               <TableCell align='right'>
                 <Button
                   size='small'
