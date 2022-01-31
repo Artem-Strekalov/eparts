@@ -22,9 +22,11 @@ const Emodal = () => {
     setPrice('')
     setAmount(1)
   }
+
   const handleChange = (event) => {
     setPrice(event.target.value)
   }
+
   const styled = {
     width: '600px',
     padding: '20px',
@@ -83,6 +85,7 @@ const Emodal = () => {
     },
     btnGroup: {},
   }
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <div style={styled}>

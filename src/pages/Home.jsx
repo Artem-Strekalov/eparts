@@ -7,6 +7,7 @@ import appFirebase from '../firebase'
 import {getFirestore} from 'firebase/firestore'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 import Eheader from '../ui/Eheader'
+import {height} from '@mui/system'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -96,6 +97,21 @@ const Home = () => {
       width: '100%',
       padding: '10px',
     },
+    addCart: {
+      position: 'absolute',
+      width: '200px',
+      height: '50px',
+      opacity: '0.7',
+      background: 'red',
+      top: '105px',
+      right: '20px',
+      borderRadius: '5px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '14px',
+      color: '#fff',
+    },
   }
 
   return (
@@ -136,6 +152,7 @@ const Home = () => {
           )}
         </div>
       </main>
+      <div style={styled.addCart}> Заказ добавлен в корзину</div>
       <Emodal></Emodal>
       {load ? <Loading /> : null}
     </div>
