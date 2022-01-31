@@ -1,7 +1,8 @@
-import dataBascket from './dataBascket'
-import statusModal from './statusModal'
+import dataApp from './dataApp'
 import {combineReducers} from 'redux'
+
 const allReducers = combineReducers({
-  dataBascket, statusModal
+  dataApp,
 })
+
 export default allReducers

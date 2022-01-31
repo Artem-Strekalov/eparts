@@ -1,18 +1,16 @@
 import React, {useState} from 'react'
-import Modal from '@mui/material/Modal'
-import Box from '@mui/material/Box'
+import Dialog from '@mui/material/Dialog'
 import {useSelector, useDispatch} from 'react-redux'
 import {closeModal} from '../store/actions'
 
 const Emodal = () => {
-  /*   const [open, setOpen] = useState(true)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false) */
+  /* const [open, setOpen] = useState(true) */
 
+  const open = useSelector((state) => state.dataApp.statusModal)
   const dispatch = useDispatch()
-  const open = useSelector((state) => state.statusModal)
-  const handleClose = () => dispatch(closeModal)
-
+  const handleClose = () => {
+    dispatch(closeModal())
+  }
   const styled = {
     position: 'absolute',
     top: '50%',
@@ -24,14 +22,12 @@ const Emodal = () => {
     p: 4,
   }
   return (
-    <Modal
+    <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'
-    >
-      <Box sx={styled}></Box>
-    </Modal>
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+    ></Dialog>
   )
 }
 export default Emodal

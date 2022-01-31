@@ -10,7 +10,7 @@ import {useSelector} from 'react-redux'
 import {useSatate, useEffect} from 'react'
 
 const Eheader = () => {
-  const dataBascket = useSelector((state) => state.dataBascket)
+  const dataBascket = useSelector((state) => state.dataApp.dataBascket)
   const styled = {
     header: {
       width: '100%',
