@@ -6,7 +6,7 @@ const dataApp = (state = defaultState, action) => {
     case 'CLOSE_MODAL':
       return {...state, statusModal: false}
     case 'ADD_DATA_TO_BASCKET':
-      return {...state, dataBascket: [...state.dataBascket, action.payload]}
+      return {...state, dataBascket: action.payload}
     default:
       return state
   }

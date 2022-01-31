@@ -29,7 +29,7 @@ const Einput = ({
       border: 'none',
       outline: 'none',
       padding: '0 10px 0 10px',
-      fontSize:'16px'
+      fontSize: '16px',
     },
     icon: {
       color: '#999',
@@ -37,6 +37,7 @@ const Einput = ({
       cursor: 'pointer',
     },
   }
+
   let [typeInput, setTypeInput] = useState(type)
   let [showPassword, setShowPassword] = useState(false)
   function valueInput(event) {

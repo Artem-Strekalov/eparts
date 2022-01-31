@@ -8,13 +8,15 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import {useSelector, useDispatch} from 'react-redux'
-import {addDataToBascket} from '../store/actions'
+import {addDataToBascket, showModal} from '../store/actions'
 
 const Etable = ({data}) => {
   const rows = JSON.parse(data)
   const dispatch = useDispatch()
+  
   function addDataCart(obj) {
     dispatch(addDataToBascket(obj))
+    dispatch(showModal())
   }
 
   return (
@@ -41,7 +43,7 @@ const Etable = ({data}) => {
               </TableCell>
               <TableCell align='right'>{row.vendorCode}</TableCell>
               <TableCell align='right'>{row.amount}</TableCell>
-              <TableCell align='right'>{row.prisStoc}</TableCell>
+              <TableCell align='right'>{row.stockPrice}</TableCell>
               <TableCell align='right'>{row.priceOnOrder}</TableCell>
               <TableCell align='right'>
                 <Button

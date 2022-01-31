@@ -1,5 +1,5 @@
 const defaultState = {
-  statusModal: true,
-  dataBascket: [],
+  statusModal: false,
+  dataBascket: {},
 }
 export default defaultState
