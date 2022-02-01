@@ -5,11 +5,11 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 const Einput = ({
   type,
   title,
-  email,
   required,
   onChange,
   placeholder,
   customStyle,
+  height,
 }) => {
   const styledInput = {
     width: '100%',
@@ -17,19 +17,19 @@ const Einput = ({
       display: 'flex',
       alignItems: 'center',
       background: '#fff',
-      height: '40px',
+      height: `${height ? height : '40px'}`,
       paddingRight: '10px',
       borderRadius: '10px',
     },
     label: {
       fontSize: '12px',
-     
     },
     input: {
       width: '100%',
       border: 'none',
       outline: 'none',
       padding: '0 10px 0 10px',
+      fontSize: '16px',
     },
     icon: {
       color: '#999',
@@ -37,6 +37,7 @@ const Einput = ({
       cursor: 'pointer',
     },
   }
+
   let [typeInput, setTypeInput] = useState(type)
   let [showPassword, setShowPassword] = useState(false)
   function valueInput(event) {
@@ -52,7 +53,6 @@ const Einput = ({
       {title ? <p style={styledInput.label}>{title}</p> : ''}
       <div style={styledInput.inputBlock}>
         <input
-          email={email}
           type={typeInput}
           required={required}
           onChange={valueInput}
