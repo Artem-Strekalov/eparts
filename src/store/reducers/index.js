@@ -1,8 +1,10 @@
-import dataApp from './dataApp'
+import user from './user'
+import helper from './helper'
 import {combineReducers} from 'redux'
 
 const allReducers = combineReducers({
-  dataApp,
+  user,
+  helper,
 })
 
 export default allReducers

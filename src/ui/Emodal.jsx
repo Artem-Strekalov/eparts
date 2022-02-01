@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Dialog from '@mui/material/Dialog'
 import {useSelector, useDispatch} from 'react-redux'
-import {closeModal} from '../store/actions'
+import {closeModal, addDataToBascket} from '../store/actions'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -13,8 +13,8 @@ import Button from '@mui/material/Button'
 const Emodal = () => {
   const [price, setPrice] = useState('')
   const [amount, setAmount] = useState(1)
-  const open = useSelector((state) => state.dataApp.statusModal)
-  const dataPart = useSelector((state) => state.dataApp.dataBascket)
+  const open = useSelector((state) => state.helper.statusModal)
+  const selectProduct = useSelector((state) => state.user.selectedProduct)
   const dispatch = useDispatch()
 
   function handleClose() {
@@ -23,8 +23,18 @@ const Emodal = () => {
     setAmount(1)
   }
 
-  const handleChange = (event) => {
+  function handleChange(event) {
     setPrice(event.target.value)
+  }
+
+  function addDataToCart() {
+    const product = {
+      ...selectProduct,
+      selectedPrice: price,
+      quantityGoods: amount,
+    }
+    dispatch(addDataToBascket(product))
+    handleClose()
   }
 
   const styled = {
@@ -39,8 +49,8 @@ const Emodal = () => {
     img: {
       width: '50%',
       backgroundImage: `${
-        dataPart.image
-          ? `url(${dataPart.image})`
+        selectProduct.image
+          ? `url(${selectProduct.image})`
           : `url(${process.env.PUBLIC_URL + '/image/png/nofoto.jpg'})`
       }`,
       backgroundPosition: 'center',
@@ -92,7 +102,7 @@ const Emodal = () => {
         <div style={styled.content}>
           <div style={styled.img}></div>
           <div style={styled.infoParts}>
-            <span style={styled.nameParts}>{dataPart.name}</span>
+            <span style={styled.nameParts}>{selectProduct.name}</span>
             <FormControl>
               <InputLabel>Выберите стоимость</InputLabel>
               <Select
@@ -100,11 +110,11 @@ const Emodal = () => {
                 label='Выберите стоимость'
                 onChange={handleChange}
               >
-                <MenuItem value={dataPart.stockPrice}>
-                  Со склада - {dataPart.stockPrice} руб.
+                <MenuItem value={selectProduct.stockPrice}>
+                  Со склада - {selectProduct.stockPrice} руб.
                 </MenuItem>
-                <MenuItem value={dataPart.priceOnOrder}>
-                  Под заказ - {dataPart.priceOnOrder} руб.
+                <MenuItem value={selectProduct.priceOnOrder}>
+                  Под заказ - {selectProduct.priceOnOrder} руб.
                 </MenuItem>
               </Select>
             </FormControl>
@@ -134,8 +144,9 @@ const Emodal = () => {
               style={{marginTop: '30px'}}
               size='small'
               variant='contained'
+              onClick={addDataToCart}
             >
-              Оформить заказ
+              Добавить в корзину
             </Button>
             <Button
               style={{marginTop: '10px'}}

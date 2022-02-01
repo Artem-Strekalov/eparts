@@ -7,7 +7,6 @@ import appFirebase from '../firebase'
 import {getFirestore} from 'firebase/firestore'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 import Eheader from '../ui/Eheader'
-import {height} from '@mui/system'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -58,6 +57,7 @@ const Home = () => {
   useEffect(() => {
     getData()
   }, [load])
+
   const styled = {
     width: '100%',
     boxSizing: 'border-box',
