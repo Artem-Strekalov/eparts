@@ -7,6 +7,8 @@ import appFirebase from '../firebase'
 import {getFirestore} from 'firebase/firestore'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 import Eheader from '../ui/Eheader'
+import {useSelector, useDispatch} from 'react-redux'
+import { closeBascketMessage } from '../store/actions'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -17,6 +19,13 @@ const Home = () => {
   const [noData, setNoData] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [dataCart, setDataCart] = useState('')
+  const dispatch = useDispatch()
+  const statusBascketMessage = useSelector(
+    (state) => state.helper.statusBascketMessage,
+  )
+  useEffect(() => {
+    setTimeout(() => dispatch(closeBascketMessage()), 3000);
+  }, [statusBascketMessage])
 
   function showHover() {
     setHover(true)
@@ -152,7 +161,12 @@ const Home = () => {
           )}
         </div>
       </main>
-      <div style={styled.addCart}> Заказ добавлен в корзину</div>
+      {statusBascketMessage ? (
+        <div style={styled.addCart}> Заказ добавлен в корзину</div>
+      ) : (
+        ''
+      )}
+
       <Emodal></Emodal>
       {load ? <Loading /> : null}
     </div>

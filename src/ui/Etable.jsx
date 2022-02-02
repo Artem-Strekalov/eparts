@@ -9,11 +9,12 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import {useSelector, useDispatch} from 'react-redux'
 import {chooseProduct, showModal} from '../store/actions'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
 const Etable = ({data}) => {
   const rows = JSON.parse(data)
   const dispatch = useDispatch()
-  
+
   function selectProduct(obj) {
     dispatch(chooseProduct(obj))
     dispatch(showModal())
@@ -49,6 +50,7 @@ const Etable = ({data}) => {
                 <Button
                   size='small'
                   variant='contained'
+                  endIcon={<AddShoppingCartIcon />}
                   onClick={() => selectProduct(row)}
                 >
                   В корзину
