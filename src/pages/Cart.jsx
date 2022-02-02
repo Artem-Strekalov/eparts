@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Eheader from '../ui/Eheader'
 import Button from '@mui/material/Button'
-import DeleteIcon from '@mui/icons-material/Delete'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -68,74 +67,83 @@ const Cart = () => {
       alignItems: 'center',
       justifyContent: 'space-between',
     },
+    emptyBasket: {
+      padding: '20px',
+    },
   }
   return (
     <div>
       <Eheader />
-      <div style={styled.content}>
-        <h2 style={styled.nameCart}>Корзина заказов</h2>
-        <TableContainer component={Paper}>
-          <Table sx={{minWidth: 650}} aria-label='simple table'>
-            <TableHead>
-              <TableRow style={{background: '#efa00b'}}>
-                <TableCell>Товар</TableCell>
-                <TableCell align='right'>Количество</TableCell>
-                <TableCell align='right'>Стоимость</TableCell>
-                <TableCell align='right'></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                >
-                  <TableCell sx={{maxWidth: 300}} component='th' scope='row'>
-                    <div style={styled.product}>
-                      <div
-                        style={{
-                          ...styled.foto,
-                          backgroundImage: `${
-                            row.image
-                              ? `url(${row.image})`
-                              : `url(${
-                                  process.env.PUBLIC_URL +
-                                  '/image/png/nofoto.jpg'
-                                })`
-                          }`,
-                        }}
-                      ></div>
-                      <span style={styled.nameText}>{row.name}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell align='right'>{row.quantityGoods}</TableCell>
-                  <TableCell align='right'>{row.selectedPrice} руб.</TableCell>
-                  <TableCell align='right'>
-                    <Button
-                      size='small'
-                      variant='outlined'
-                      onClick={() => removePart(row.id)}
-                    >
-                      удалить
-                    </Button>
-                  </TableCell>
+      {rows.length ? (
+        <div style={styled.content}>
+          <h2 style={styled.nameCart}>Корзина заказов</h2>
+          <TableContainer component={Paper}>
+            <Table sx={{minWidth: 650}} aria-label='simple table'>
+              <TableHead>
+                <TableRow style={{background: '#efa00b'}}>
+                  <TableCell>Товар</TableCell>
+                  <TableCell align='right'>Количество</TableCell>
+                  <TableCell align='right'>Стоимость</TableCell>
+                  <TableCell align='right'></TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div style={styled.footer}>
-          <div>Общая сумма заказа: {sum} руб.</div>
-          <div>
-            <Button variant='outlined' onClick={() => removeAllParts()}>
-              Очистить корзину
-            </Button>
-            <Button style={{marginLeft: '20px'}} variant='contained'>
-              Оформить заказ
-            </Button>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                  >
+                    <TableCell sx={{maxWidth: 300}} component='th' scope='row'>
+                      <div style={styled.product}>
+                        <div
+                          style={{
+                            ...styled.foto,
+                            backgroundImage: `${
+                              row.image
+                                ? `url(${row.image})`
+                                : `url(${
+                                    process.env.PUBLIC_URL +
+                                    '/image/png/nofoto.jpg'
+                                  })`
+                            }`,
+                          }}
+                        ></div>
+                        <span style={styled.nameText}>{row.name}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell align='right'>{row.quantityGoods}</TableCell>
+                    <TableCell align='right'>
+                      {row.selectedPrice} руб.
+                    </TableCell>
+                    <TableCell align='right'>
+                      <Button
+                        size='small'
+                        variant='outlined'
+                        onClick={() => removePart(row.id)}
+                      >
+                        удалить
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <div style={styled.footer}>
+            <div>Общая сумма заказа: {sum} руб.</div>
+            <div>
+              <Button variant='outlined' onClick={() => removeAllParts()}>
+                Очистить корзину
+              </Button>
+              <Button style={{marginLeft: '20px'}} variant='contained'>
+                Оформить заказ
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <h2 style={styled.emptyBasket}>Товар в вашей корзине отсутствует</h2>
+      )}
     </div>
   )
 }
