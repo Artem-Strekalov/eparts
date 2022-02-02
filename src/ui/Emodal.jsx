@@ -5,7 +5,6 @@ import {
   closeModal,
   addDataToBascket,
   showBascketMessage,
-  closeBascketMessage,
 } from '../store/actions'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -20,9 +19,7 @@ const Emodal = () => {
   const [amount, setAmount] = useState(1)
   const open = useSelector((state) => state.helper.statusModal)
   const selectProduct = useSelector((state) => state.user.selectedProduct)
-  const statusBascketMessage = useSelector(
-    (state) => state.helper.statusBassketMessage,
-  )
+  const [showError, setShowError] = useState(false)
   const dispatch = useDispatch()
 
   function handleClose() {
@@ -41,9 +38,14 @@ const Emodal = () => {
       selectedPrice: price,
       quantityGoods: amount,
     }
-    dispatch(addDataToBascket(product))
-    handleClose()
-    dispatch(showBascketMessage())
+    if (price) {
+      dispatch(addDataToBascket(product))
+      handleClose()
+      dispatch(showBascketMessage())
+    } else {
+      setShowError(true)
+      return
+    }
   }
 
   const styled = {
@@ -102,7 +104,11 @@ const Emodal = () => {
       marginRight: '10px',
       fontSize: '20px',
     },
-    btnGroup: {},
+    error: {
+      color: 'red',
+      fontSize: '12px',
+      marginBottom: '10px',
+    },
   }
 
   return (
@@ -112,6 +118,11 @@ const Emodal = () => {
           <div style={styled.img}></div>
           <div style={styled.infoParts}>
             <span style={styled.nameParts}>{selectProduct.name}</span>
+            {showError ? (
+              <p style={styled.error}>Необходимо выбрать стоимость</p>
+            ) : (
+              ''
+            )}
             <FormControl>
               <InputLabel>Выберите стоимость</InputLabel>
               <Select
