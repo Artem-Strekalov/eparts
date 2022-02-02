@@ -1,7 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Dialog from '@mui/material/Dialog'
 import {useSelector, useDispatch} from 'react-redux'
-import {closeModal, addDataToBascket} from '../store/actions'
+import {
+  closeModal,
+  addDataToBascket,
+  showBascketMessage,
+  closeBascketMessage,
+} from '../store/actions'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -15,6 +20,9 @@ const Emodal = () => {
   const [amount, setAmount] = useState(1)
   const open = useSelector((state) => state.helper.statusModal)
   const selectProduct = useSelector((state) => state.user.selectedProduct)
+  const statusBascketMessage = useSelector(
+    (state) => state.helper.statusBassketMessage,
+  )
   const dispatch = useDispatch()
 
   function handleClose() {
@@ -35,6 +43,7 @@ const Emodal = () => {
     }
     dispatch(addDataToBascket(product))
     handleClose()
+    dispatch(showBascketMessage())
   }
 
   const styled = {

@@ -10,3 +10,10 @@ export const showModal = () => {
 export const closeModal = () => {
   return {type: 'CLOSE_MODAL'}
 }
+
+export const showBascketMessage = () => {
+  return {type: 'SHOW_BASCKET_MESSAGE'}
+}
+export const closeBascketMessage = () => {
+  return {type: 'CLOSE_BASCKET_MESSAGE'}
+}
