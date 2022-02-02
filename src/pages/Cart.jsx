@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Eheader from '../ui/Eheader'
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -9,20 +9,42 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {removeItemFromCart, removeAllItemFromCart} from '../store/actions'
 
 const Cart = () => {
   const rows = useSelector((state) => state.user.dataBascket)
+  const [sum, setSum] = useState(0)
+  const dispatch = useDispatch()
+
+  function sumPrice() {
+    let newSum = 0
+    rows.forEach((item) => {
+      newSum = newSum + item.selectedPrice * item.quantityGoods
+    })
+    setSum(newSum)
+  }
+  function removePart(id) {
+    dispatch(removeItemFromCart(id))
+  }
+  function removeAllParts() {
+    dispatch(removeAllItemFromCart())
+  }
+
+  useEffect(() => {
+    sumPrice()
+  })
+
   const styled = {
     content: {
       width: '100%',
-      height: '600px',
+      height: 'calc(100vh - 80px)',
       background: '#f1f1f1',
       padding: '20px 20px 0 20px',
     },
     nameCart: {
       color: '#333',
-      marginBottom:'20px'
+      marginBottom: '20px',
     },
     product: {
       display: 'flex',
@@ -39,6 +61,12 @@ const Cart = () => {
     nameText: {
       maxWidth: '300px',
       width: '100%',
+    },
+    footer: {
+      marginTop: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
   }
   return (
@@ -80,11 +108,15 @@ const Cart = () => {
                       <span style={styled.nameText}>{row.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell align='right'>{row.amount}</TableCell>
-                  <TableCell align='right'>{row.stockPrice} руб.</TableCell>
+                  <TableCell align='right'>{row.quantityGoods}</TableCell>
+                  <TableCell align='right'>{row.selectedPrice} руб.</TableCell>
                   <TableCell align='right'>
-                    <Button size='small' variant='outlined'>
-                      Убрать из корзины
+                    <Button
+                      size='small'
+                      variant='outlined'
+                      onClick={() => removePart(row.id)}
+                    >
+                      удалить
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -92,6 +124,17 @@ const Cart = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <div style={styled.footer}>
+          <div>Общая сумма заказа: {sum} руб.</div>
+          <div>
+            <Button variant='outlined' onClick={() => removeAllParts()}>
+              Очистить корзину
+            </Button>
+            <Button style={{marginLeft: '20px'}} variant='contained'>
+              Оформить заказ
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
