@@ -11,6 +11,14 @@ export const removeItemFromCart = (payload) => {
 export const removeAllItemFromCart = (payload) => {
   return {type: 'REMOVE_ALL_ITEM_FROM_CART', payload}
 }
+export const addCurrentUser = (payload) => {
+  return {type: 'ADD_CURRENT_USER', payload}
+}
+export const removeCurrentUser = (payload) => {
+  return {type: 'REMOVE_CURRENT_USER', payload}
+}
+
+
 //helper
 export const showModal = () => {
   return {type: 'SHOW_MODAL'}

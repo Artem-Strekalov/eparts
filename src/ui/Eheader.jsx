@@ -8,9 +8,26 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import {useSelector} from 'react-redux'
 import {useSatate, useEffect} from 'react'
+import {auth} from '../firebase'
+import {signOut} from 'firebase/auth'
+import {useNavigate} from 'react-router-dom'
 
 const Eheader = () => {
   const dataBascket = useSelector((state) => state.user.dataBascket)
+  const styleLink = ({isActive}) =>
+    isActive ? {...styled.navItem, color: '#fff200'} : styled.navItem
+  const navigate = useNavigate()
+
+  const out = async () => {
+    await signOut(auth)
+      .then(() => {
+        navigate('/')
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
+
   const styled = {
     header: {
       width: '100%',
@@ -54,9 +71,6 @@ const Eheader = () => {
       fontSize: '20px',
     },
   }
-  const styleLink = ({isActive}) =>
-    isActive ? {...styled.navItem, color: '#fff200'} : styled.navItem
-
   return (
     <header style={styled.header}>
       <img src={process.env.PUBLIC_URL + '/image/svg/logo.svg'} />
@@ -86,7 +100,7 @@ const Eheader = () => {
           <AccountBoxIcon style={styled.icon} />
           Илья Бирюков
         </div>
-        <div style={styled.navItem}>
+        <div style={styled.navItem} onClick={() => out()}>
           <LogoutIcon style={styled.icon} />
           Выйти
         </div>

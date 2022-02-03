@@ -1,9 +1,11 @@
 import './Auth.scss'
-import React, {useState} from 'react'
 import Einput from '../../ui/Einput'
-import {Link} from 'react-router-dom'
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
-import appFirebase from '../../firebase'
+import {auth} from '../../firebase'
+import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {Link, useNavigate} from 'react-router-dom'
+import {addCurrentUser} from '../../store/actions'
+import {createUserWithEmailAndPassword} from 'firebase/auth'
 
 const Reg = () => {
   const [form, setForm] = useState({
@@ -14,41 +16,30 @@ const Reg = () => {
     organization: '',
     password: '',
   })
-  const marginBottom = {marginBottom: '10px'}
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  function getEmail(value) {
-    setForm({...form, email: value})
-  }
-  function getFirstName(value) {
-    setForm({...form, firstName: value})
-  }
-  function getSecondName(value) {
-    setForm({...form, secondName: value})
-  }
-  function getPhone(value) {
-    setForm({...form, phone: value})
-  }
-  function getOrganization(value) {
-    setForm({...form, organization: value})
-  }
-  function getPassword(value) {
-    setForm({...form, password: value})
-  }
-  /* регистрация */
-  const auth = getAuth(appFirebase)
-  async function registred(e) {
+  const getEmail = (value) => setForm({...form, email: value})
+  const getPhone = (value) => setForm({...form, phone: value})
+  const getPassword = (value) => setForm({...form, password: value})
+  const getFirstName = (value) => setForm({...form, firstName: value})
+  const getSecondName = (value) => setForm({...form, secondName: value})
+  const getOrganization = (value) => setForm({...form, organization: value})
+
+  const registred = async (e) => {
     e.preventDefault()
     await createUserWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log(user)
+        dispatch(addCurrentUser(user))
+        navigate('/home')
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
       })
   }
-
+  const marginBottom = {marginBottom: '10px'}
   return (
     <div className='content'>
       <div className='content__header'>

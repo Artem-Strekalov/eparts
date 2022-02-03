@@ -1,36 +1,37 @@
 import './Auth.scss'
-import React, {useState} from 'react'
+import {auth} from '../../firebase'
 import Einput from '../../ui/Einput'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import appFirebase from '../../firebase'
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {addCurrentUser} from '../../store/actions'
+import {signInWithEmailAndPassword} from 'firebase/auth'
 
 const Auth = () => {
   const [form, setForm] = useState({
     email: '',
     password: '',
   })
-  const marginBottom = {marginBottom: '10px'}
-  function getEmail(value) {
-    setForm({...form, email: value})
-  }
-  function getPassword(value) {
-    setForm({...form, password: value})
-  }
-  const auth = getAuth(appFirebase)
-  async function authorization(e) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const getEmail = (value) => setForm({...form, email: value})
+  const getPassword = (value) => setForm({...form, password: value})
+  const authorization = async (e) => {
     e.preventDefault()
     await signInWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log(user)
+        dispatch(addCurrentUser(user))
+        navigate('/home')
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
       })
   }
-
+  const marginBottom = {marginBottom: '10px'}
   return (
     <div className='content'>
       <div className='content__header'>

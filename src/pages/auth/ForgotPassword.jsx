@@ -4,7 +4,7 @@ import Einput from '../../ui/Einput'
 import {Link} from 'react-router-dom'
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
-  function getEmail(value) {
+  const getEmail = (value) => {
     setEmail(value)
   }
   return (
