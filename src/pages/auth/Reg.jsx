@@ -1,11 +1,12 @@
 import './Auth.scss'
 import Einput from '../../ui/Einput'
-import {auth} from '../../firebase'
+import {auth, db} from '../../firebase'
 import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
 import {addCurrentUser} from '../../store/actions'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
+import {doc, setDoc} from 'firebase/firestore'
 
 const Reg = () => {
   const [form, setForm] = useState({
@@ -13,7 +14,7 @@ const Reg = () => {
     firstName: '',
     secondName: '',
     phone: '',
-    organization: '',
+    company: '',
     password: '',
   })
   const navigate = useNavigate()
@@ -24,7 +25,24 @@ const Reg = () => {
   const getPassword = (value) => setForm({...form, password: value})
   const getFirstName = (value) => setForm({...form, firstName: value})
   const getSecondName = (value) => setForm({...form, secondName: value})
-  const getOrganization = (value) => setForm({...form, organization: value})
+  const getCompany = (value) => setForm({...form, company: value})
+  const sendUsersInfo = async (
+    email,
+    firstName,
+    secondName,
+    phone,
+    company,
+    id,
+  ) => {
+    await setDoc(doc(db, 'users', `${id}`), {
+      email,
+      firstName,
+      secondName,
+      phone,
+      company,
+      uid: id,
+    })
+  }
 
   const registred = async (e) => {
     e.preventDefault()
@@ -32,6 +50,15 @@ const Reg = () => {
       .then((userCredential) => {
         const user = userCredential.user
         dispatch(addCurrentUser(user))
+        // загружаем данные о пользователе на firebase
+        sendUsersInfo(
+          form.email,
+          form.firstName,
+          form.secondName,
+          form.phone,
+          form.company,
+          user.uid,
+        )
         navigate('/home')
       })
       .catch((error) => {
@@ -77,7 +104,7 @@ const Reg = () => {
             required={true}
             title='Организация'
             customStyle={marginBottom}
-            onChange={getOrganization}
+            onChange={getCompany}
           />
           <Einput
             title='Пароль'
