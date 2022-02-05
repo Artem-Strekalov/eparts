@@ -3,13 +3,13 @@ import Einput from '../ui/Einput'
 import Etable from '../ui/Etable'
 import Loading from '../ui/Loading'
 import Eheader from '../ui/Eheader'
-import appFirebase from '../firebase'
+import appFirebase, {auth} from '../firebase'
 import {getFirestore} from 'firebase/firestore'
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { closeBascketMessage } from '../store/actions'
+import {closeBascketMessage} from '../store/actions'
 import {collection, getDocs, where, query} from 'firebase/firestore'
-
+import {fetchCurrentUser} from '../store/asyncAction'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -24,10 +24,13 @@ const Home = () => {
   const statusBascketMessage = useSelector(
     (state) => state.helper.statusBascketMessage,
   )
-  useEffect(() => {
-    setTimeout(() => dispatch(closeBascketMessage()), 3000);
-  }, [statusBascketMessage])
 
+  useEffect(() => {
+    setTimeout(() => dispatch(closeBascketMessage()), 3000)
+  }, [statusBascketMessage])
+  useEffect(() => {
+    dispatch(fetchCurrentUser())
+  }, [auth])
   function showHover() {
     setHover(true)
   }
@@ -37,7 +40,6 @@ const Home = () => {
   function getSearch(value) {
     setSearch(value.toLowerCase().trim())
   }
-
   //запрос
   async function getData(e) {
     setDataParts([])

@@ -1,5 +1,22 @@
 import defaultUser from '../defaultUser'
+import {auth, db} from '../../firebase'
+import {doc, getDoc} from 'firebase/firestore'
+import {onAuthStateChanged} from 'firebase/auth'
 
+
+const loadCurrentUser = async () => {
+  console.log(auth.currentUser.uid)
+
+  /* const uid = await auth.currentUser.uid
+  const path = doc(db, 'users', `${uid}`)
+  const getData = await getDoc(path)
+  let dataUser
+  getData.exists() ? (dataUser = getData.data()) : (dataUser = null)
+  console.log(dataUser)
+  return dataUser */
+}
+
+loadCurrentUser()
 const user = (state = defaultUser, action) => {
   switch (action.type) {
     case 'CHOOSE_A_PRODUCT':

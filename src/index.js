@@ -5,12 +5,12 @@ import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import allReducers from './store/reducers'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 const myStore = createStore(
   allReducers,
-/*    applyMiddleware(thunk) */
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  composeWithDevTools(applyMiddleware(thunk)),
 )
 ReactDOM.render(
   <Provider store={myStore}>

@@ -2,9 +2,7 @@ import './Auth.scss'
 import Einput from '../../ui/Einput'
 import {auth, db} from '../../firebase'
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
-import {addCurrentUser} from '../../store/actions'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import {doc, setDoc} from 'firebase/firestore'
 
@@ -18,7 +16,6 @@ const Reg = () => {
     password: '',
   })
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const getEmail = (value) => setForm({...form, email: value})
   const getPhone = (value) => setForm({...form, phone: value})
@@ -49,7 +46,6 @@ const Reg = () => {
     await createUserWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user
-        dispatch(addCurrentUser(user))
         // загружаем данные о пользователе на firebase
         sendUsersInfo(
           form.email,
@@ -64,6 +60,7 @@ const Reg = () => {
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
+        console.log(error.message);
       })
   }
   const marginBottom = {marginBottom: '10px'}
