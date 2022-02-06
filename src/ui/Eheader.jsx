@@ -77,7 +77,7 @@ const Eheader = () => {
       <div style={styled.nav}>
         <NavLink style={styleLink} to='/home'>
           <HomeIcon style={styled.icon} />
-          Склад
+          Главная
         </NavLink>
         <div style={styled.navItem}>
           <RestoreIcon style={styled.icon} />
