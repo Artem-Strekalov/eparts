@@ -5,13 +5,13 @@ import {addCurrentUser} from '../actions'
 
 export const fetchCurrentUser = () => {
   return (dispatch) => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log(user.uid)
         const uid = user.uid
         const path = doc(db, 'users', `${uid}`)
-        const dataUser = getDoc(path)
-        dispatch(addCurrentUser(dataUser.data()))
+        const getData = await getDoc(path)
+        const dataUser = getData.data()
+        dispatch(addCurrentUser(dataUser))
       }
     })
   }
