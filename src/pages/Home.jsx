@@ -10,6 +10,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {closeBascketMessage} from '../store/actions'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 import {fetchCurrentUser} from '../store/asyncAction'
+import Ecarusel from '../ui/Ecarusel'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -125,7 +126,7 @@ const Home = () => {
       color: '#fff',
     },
   }
-
+  
   return (
     <div style={styled}>
       <Eheader activeLink='#efa00b' />
@@ -148,21 +149,25 @@ const Home = () => {
             </button>
           </form>
         </div>
-        <div style={styled.table}>
-          {dataParts.length > 0 ? (
-            <Etable data={JSON.stringify(dataParts)} />
-          ) : (
-            ''
-          )}
+        {dataParts.length > 0 ? (
+          <div style={styled.table}>
+            {dataParts.length > 0 ? (
+              <Etable data={JSON.stringify(dataParts)} />
+            ) : (
+              ''
+            )}
 
-          {noData ? (
-            <p>
-              По вашему запросу {searchQuery.toUpperCase()} ничего не найдено
-            </p>
-          ) : (
-            ''
-          )}
-        </div>
+            {noData ? (
+              <p>
+                По вашему запросу {searchQuery.toUpperCase()} ничего не найдено
+              </p>
+            ) : (
+              ''
+            )}
+          </div>
+        ) : (
+          <Ecarusel></Ecarusel>
+        )}
       </main>
       {statusBascketMessage ? (
         <div style={styled.addCart}> Заказ добавлен в корзину</div>

@@ -6,14 +6,16 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import RestoreIcon from '@mui/icons-material/Restore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {useSelector} from 'react-redux'
-import {useSatate, useEffect} from 'react'
 import {auth} from '../firebase'
 import {signOut} from 'firebase/auth'
 import {useNavigate} from 'react-router-dom'
 
 const Eheader = () => {
   const dataBascket = useSelector((state) => state.user.dataBascket)
+  const firstName = useSelector((state) => state.user.currentUser.firstName)
+  const secondName = useSelector((state) => state.user.currentUser.secondName)
   const styleLink = ({isActive}) =>
     isActive ? {...styled.navItem, color: '#fff200'} : styled.navItem
   const navigate = useNavigate()
@@ -80,6 +82,10 @@ const Eheader = () => {
           Главная
         </NavLink>
         <div style={styled.navItem}>
+          <StarBorderIcon style={styled.icon} />
+          Бестселлеры
+        </div>
+        <div style={styled.navItem}>
           <RestoreIcon style={styled.icon} />
           Мои заказы
         </div>
@@ -92,14 +98,15 @@ const Eheader = () => {
           <ShoppingCartIcon style={styled.icon} />
           Корзина
         </NavLink>
-        <div style={styled.navItem}>
-          <PhoneIcon style={styled.icon} />
-          Контакты
-        </div>
-        <div style={styled.navItem}>
-          <AccountBoxIcon style={styled.icon} />
-          Илья Бирюков
-        </div>
+        {firstName ? (
+          <div style={styled.navItem}>
+            <AccountBoxIcon style={styled.icon} />
+            {`${firstName}` + ` ${secondName}`}
+          </div>
+        ) : (
+          ''
+        )}
+
         <div style={styled.navItem} onClick={() => out()}>
           <LogoutIcon style={styled.icon} />
           Выйти

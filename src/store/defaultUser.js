@@ -1,6 +1,6 @@
 const defaultUser = {
   selectedProduct: {},
   dataBascket: [],
-  currentUser: null,
+  currentUser: {},
 }
 export default defaultUser
