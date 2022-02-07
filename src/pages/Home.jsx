@@ -10,6 +10,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {closeBascketMessage} from '../store/actions'
 import {collection, getDocs, where, query} from 'firebase/firestore'
 import {fetchCurrentUser} from '../store/asyncAction'
+import Ecarusel from '../ui/Ecarusel'
 
 const db = getFirestore(appFirebase)
 const Home = () => {
@@ -175,16 +176,7 @@ const Home = () => {
             )}
           </div>
         ) : (
-          <div style={styled.about}>
-            <div style={styled.aboutHeader}>
-              <h2 style={{color: '#999', fontWeight: '500'}}>
-                Запчасти для спецтехники с доставкой по России
-              </h2>
-              <p style={{fontSize: '18px'}}>
-                Оперативно подберём и отправим детали в любой регион страны
-              </p>
-            </div>
-          </div>
+          <Ecarusel></Ecarusel>
         )}
       </main>
       {statusBascketMessage ? (
