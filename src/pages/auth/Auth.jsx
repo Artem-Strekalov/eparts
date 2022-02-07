@@ -3,9 +3,7 @@ import {auth} from '../../firebase'
 import Einput from '../../ui/Einput'
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {addCurrentUser} from '../../store/actions'
 import {signInWithEmailAndPassword} from 'firebase/auth'
 
 const Auth = () => {
@@ -13,7 +11,6 @@ const Auth = () => {
     email: '',
     password: '',
   })
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const getEmail = (value) => setForm({...form, email: value})
@@ -23,7 +20,6 @@ const Auth = () => {
     await signInWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user
-        dispatch(addCurrentUser(user))
         navigate('/home')
       })
       .catch((error) => {

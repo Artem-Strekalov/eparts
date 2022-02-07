@@ -124,6 +124,16 @@ const Home = () => {
       fontSize: '14px',
       color: '#fff',
     },
+    about: {
+      width: '100%',
+      height: '100%',
+      padding: '20px',
+    },
+    aboutHeader: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   }
 
   return (
@@ -148,21 +158,34 @@ const Home = () => {
             </button>
           </form>
         </div>
-        <div style={styled.table}>
-          {dataParts.length > 0 ? (
-            <Etable data={JSON.stringify(dataParts)} />
-          ) : (
-            ''
-          )}
+        {dataParts.length > 0 ? (
+          <div style={styled.table}>
+            {dataParts.length > 0 ? (
+              <Etable data={JSON.stringify(dataParts)} />
+            ) : (
+              ''
+            )}
 
-          {noData ? (
-            <p>
-              По вашему запросу {searchQuery.toUpperCase()} ничего не найдено
-            </p>
-          ) : (
-            ''
-          )}
-        </div>
+            {noData ? (
+              <p>
+                По вашему запросу {searchQuery.toUpperCase()} ничего не найдено
+              </p>
+            ) : (
+              ''
+            )}
+          </div>
+        ) : (
+          <div style={styled.about}>
+            <div style={styled.aboutHeader}>
+              <h2 style={{color: '#999', fontWeight: '500'}}>
+                Запчасти для спецтехники с доставкой по России
+              </h2>
+              <p style={{fontSize: '18px'}}>
+                Оперативно подберём и отправим детали в любой регион страны
+              </p>
+            </div>
+          </div>
+        )}
       </main>
       {statusBascketMessage ? (
         <div style={styled.addCart}> Заказ добавлен в корзину</div>
