@@ -6,6 +6,7 @@ import 'swiper/css/navigation'
 import {Autoplay, Pagination, Navigation} from 'swiper'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import TelegramIcon from '@mui/icons-material/Telegram'
+import Button from '@mui/material/Button'
 
 const Ecarusel = () => {
   const styled = {
@@ -18,16 +19,6 @@ const Ecarusel = () => {
       height: '100%',
       display: 'flex',
       alignItems: 'center',
-    },
-    slideSecond: {
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'right',
-      backgroundImage: `url(${process.env.PUBLIC_URL + '/image/png/best.jpg'})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'contain',
     },
     slideContent: {
       display: 'flex',
@@ -62,7 +53,6 @@ const Ecarusel = () => {
     nameBlockRight: {
       position: 'absolute',
       background: '#0075c4',
-
       top: '70%',
       left: '50%',
       bottom: 'auto',
@@ -76,9 +66,35 @@ const Ecarusel = () => {
       alignItems: 'center',
       color: '#ffdb5b',
       margin: '5px 0 10px 0',
-      fontSize:'22px'
+      fontSize: '22px',
     },
-    network: {display: 'flex', alignItems: 'end'},
+    network: {display: 'flex'},
+    //второй слайд
+    slideSecond: {
+      width: '100%',
+      height: '100%',
+      backgroundImage: `url(${process.env.PUBLIC_URL + '/image/png/best.jpg'})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'right',
+      backgroundSize: 'contain',
+    },
+    slideSecondContent: {
+      width: '50%',
+      padding: '20px 50px',
+      color: '#fff',
+      fontWeight: '600',
+      background: 'linear-gradient(121.44deg,#ffc14d 29.02%,#ffdb5b 83.08%)',
+      marginTop: '50px',
+      borderRadius: '0 10px 10px 0',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    slideThird: {
+      width: '100%',
+      height: '100%',
+      background: 'red',
+      padding: '20px',
+    },
   }
   return (
     <Swiper
@@ -95,7 +111,7 @@ const Ecarusel = () => {
       modules={[Autoplay, Pagination, Navigation]}
       style={styled.swiper}
     >
-      <SwiperSlide style={styled.slide}>
+      {/*   <SwiperSlide style={styled.slide}>
         <div style={styled.slideContent}>
           <div style={styled.slideItemLeft}>
             <div style={styled.nameBlockLeft}>
@@ -122,20 +138,42 @@ const Ecarusel = () => {
                 <p>Телефон:</p>&nbsp; &nbsp; <p> 8-919-895-22-85</p>
               </div>
               <div style={styled.network}>
-                <p>Напишите нам:</p>&nbsp;
-                <WhatsAppIcon />
-                &nbsp;
-                <TelegramIcon />
+                <p style={{marginTop: '3px'}}>Напишите нам:</p>&nbsp; &nbsp;
+                <a
+                  target='_blank'
+                  style={{color: '#fff'}}
+                  href='https://wa.me/79198952285'
+                >
+                  <WhatsAppIcon />
+                </a>
+                &nbsp;&nbsp;
+                <a
+                  target='_blank'
+                  href='https://t.me/epartsrostov'
+                  style={{color: '#fff'}}
+                >
+                  <TelegramIcon />
+                </a>
               </div>
             </div>
           </div>
         </div>
       </SwiperSlide>
-       <SwiperSlide style={styled.slideFirst}>
-        <div style={styled.slideContent}></div>
-      </SwiperSlide>
       <SwiperSlide style={styled.slideSecond}>
-        <div style={styled.slideContent}></div>
+        <div style={styled.slideSecondContent}>
+          <h2 style={{fontWeight: '500'}}>
+            Покупайте популярные товары с максимальной выгодой в разделе{' '}
+            <a style={{color: '#0075c4'}} href=''>
+              БЕСТСЕЛЛЕРЫ
+            </a>
+          </h2>
+          <Button style={{marginLeft: 'auto'}} variant='contained'>
+            Посмотреть товары
+          </Button>
+        </div>
+      </SwiperSlide> */}
+      <SwiperSlide style={styled.slideThird}>
+        <div></div>
       </SwiperSlide>
     </Swiper>
   )

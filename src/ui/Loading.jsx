@@ -13,6 +13,7 @@ const Loading = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: '1',
   }
   return (
     <div style={styled}>

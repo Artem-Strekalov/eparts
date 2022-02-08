@@ -126,7 +126,7 @@ const Home = () => {
       color: '#fff',
     },
   }
-  
+
   return (
     <div style={styled}>
       <Eheader activeLink='#efa00b' />

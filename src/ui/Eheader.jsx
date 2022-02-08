@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home'
-import PhoneIcon from '@mui/icons-material/Phone'
 import LogoutIcon from '@mui/icons-material/Logout'
 import RestoreIcon from '@mui/icons-material/Restore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarBorderIcon from '@mui/icons-material/StarBorder'
 import {useSelector} from 'react-redux'
 import {auth} from '../firebase'
 import {signOut} from 'firebase/auth'
@@ -75,7 +74,10 @@ const Eheader = () => {
   }
   return (
     <header style={styled.header}>
-      <img src={process.env.PUBLIC_URL + '/image/svg/logo.svg'} />
+      <img
+        src={process.env.PUBLIC_URL + '/image/svg/logo.svg'}
+        onClick={() => navigate('/home')}
+      />
       <div style={styled.nav}>
         <NavLink style={styleLink} to='/home'>
           <HomeIcon style={styled.icon} />

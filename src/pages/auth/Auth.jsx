@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import {signInWithEmailAndPassword} from 'firebase/auth'
 
+
 const Auth = () => {
   const [form, setForm] = useState({
     email: '',
