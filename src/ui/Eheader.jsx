@@ -17,7 +17,7 @@ const Eheader = () => {
   const firstName = useSelector((state) => state.user.currentUser.firstName)
   const secondName = useSelector((state) => state.user.currentUser.secondName)
   const styleLink = ({isActive}) =>
-    isActive ? {...styled.navItem, color: '#fff200'} : styled.navItem
+    isActive ? {...styled.navItem, color: '#ffdb5b'} : styled.navItem
   const navigate = useNavigate()
 
   const out = async () => {

@@ -1,14 +1,11 @@
 import React, {useRef, useState} from 'react'
-// Import Swiper React components
 import {Swiper, SwiperSlide} from 'swiper/react'
-
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-
-// import required modules
 import {Autoplay, Pagination, Navigation} from 'swiper'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import TelegramIcon from '@mui/icons-material/Telegram'
 
 const Ecarusel = () => {
   const styled = {
@@ -36,6 +33,10 @@ const Ecarusel = () => {
       display: 'flex',
       width: '100%',
       height: '100%',
+      backgroundImage: `url(${process.env.PUBLIC_URL + '/image/png/part.jpg'})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
     },
     slideItemLeft: {
       width: '50%',
@@ -44,19 +45,40 @@ const Ecarusel = () => {
     slideItemRight: {
       width: '50%',
       height: '100%',
-      backgroundImage: `url(${process.env.PUBLIC_URL + '/image/png/part.jpg'})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
+      padding: '50px 20px',
+      position: 'relative',
     },
-    nameBlock: {
+    nameBlockLeft: {
       marginTop: '50px',
       width: '70%',
       height: '150px',
-      background: '#0075c4',
-      padding: '20px',
+      background: 'linear-gradient(121.44deg,#ffdb5b 29.02%,#ffc14d 83.08%)',
+      padding: '0 20px',
       borderRadius: '0 10px 10px 0',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: ' center',
     },
+    nameBlockRight: {
+      position: 'absolute',
+      background: '#0075c4',
+
+      top: '70%',
+      left: '50%',
+      bottom: 'auto',
+      right: '0',
+      borderRadius: '10px 0 0 10px',
+      padding: '20px',
+      color: '#fff',
+    },
+    phone: {
+      display: 'flex',
+      alignItems: 'center',
+      color: '#ffdb5b',
+      margin: '5px 0 10px 0',
+      fontSize:'22px'
+    },
+    network: {display: 'flex', alignItems: 'end'},
   }
   return (
     <Swiper
@@ -76,8 +98,8 @@ const Ecarusel = () => {
       <SwiperSlide style={styled.slide}>
         <div style={styled.slideContent}>
           <div style={styled.slideItemLeft}>
-            <div style={styled.nameBlock}>
-              <h2 style={{color: 'yellow', fontWeight: '500'}}>
+            <div style={styled.nameBlockLeft}>
+              <h2 style={{color: '#0075c4', fontWeight: '500'}}>
                 Запчасти для спецтехники с доставкой по России
               </h2>
               <p style={{fontSize: '18px', color: '#fff', marginTop: '10px'}}>
@@ -85,7 +107,28 @@ const Ecarusel = () => {
               </p>
             </div>
           </div>
-          <div style={styled.slideItemRight}></div>
+          <div style={styled.slideItemRight}>
+            <h2 style={{color: '#0075c4', marginBottom: '10px'}}>
+              Компания EASY PARTS
+            </h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae
+              mollitia tenetur eveniet ipsam, blanditiis corporis veniam sunt
+              aliquid cupiditate nesciunt voluptatum vitae laborum, possimus
+              consequuntur, nihil cumque iste quibusdam dolore?
+            </p>
+            <div style={styled.nameBlockRight}>
+              <div style={styled.phone}>
+                <p>Телефон:</p>&nbsp; &nbsp; <p> 8-919-895-22-85</p>
+              </div>
+              <div style={styled.network}>
+                <p>Напишите нам:</p>&nbsp;
+                <WhatsAppIcon />
+                &nbsp;
+                <TelegramIcon />
+              </div>
+            </div>
+          </div>
         </div>
       </SwiperSlide>
        <SwiperSlide style={styled.slideFirst}>
